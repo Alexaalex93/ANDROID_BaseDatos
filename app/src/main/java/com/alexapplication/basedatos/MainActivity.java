@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         baseDatosCochesPersona.insetarCoche(coche2);
         baseDatosCochesPersona.insetarCoche(coche3);
 
-        List<Coche> lista_coches = baseDatosCochesPersona.buscarCochesPersona(persona2);
+        List<Persona> lista_coches = baseDatosCochesPersona.buscarPersona(persona2.get_nombre());
 
         Log.d(getClass().getCanonicalName(), "La persona " + persona2.get_nombre() + " tiene: ");
         for(Coche coche:lista_coches){//Para cada coches que este en la lista de coches
