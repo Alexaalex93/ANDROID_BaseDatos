@@ -23,6 +23,15 @@ public class Coche {
         this._modelo = modelo;
     }
 
+    public Coche(String modelo){
+        this._modelo = modelo;
+    }
+
+    public Coche(String modelo, Persona persona){
+        this._persona = persona;
+        this._modelo = modelo;
+    }
+
     public Coche(int id, String modelo, Persona persona){
         this._id = id;
         this._modelo = modelo;
