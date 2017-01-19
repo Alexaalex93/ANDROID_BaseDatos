@@ -31,16 +31,16 @@ public class MainActivity extends AppCompatActivity {
         Coche coche2 = new Coche("Renault", persona2);
         Coche coche3 = new Coche("Fiat", persona1);
 
-        baseDatosCochesPersona.insetarCoche(coche1);
-        baseDatosCochesPersona.insetarCoche(coche2);
-        baseDatosCochesPersona.insetarCoche(coche3);
+        baseDatosCochesPersona.insertarCoche(coche1);
+        baseDatosCochesPersona.insertarCoche(coche2);
+        baseDatosCochesPersona.insertarCoche(coche3);
 
-        List<Persona> lista_coches = baseDatosCochesPersona.buscarPersona(persona2.get_nombre());
+        List<Persona> list_personas = baseDatosCochesPersona.buscarPersona(persona2.get_nombre());
 
-        Log.d(getClass().getCanonicalName(), "La persona " + persona2.get_nombre() + " tiene: ");
-        for(Coche coche:lista_coches){//Para cada coches que este en la lista de coches
+        Log.d(getClass().getCanonicalName(), "La persona " + "Juan" + " tiene: ");
+        for(Persona persona: list_personas){//Para cada coches que este en la lista de coches
 
-            Log.d(getClass().getCanonicalName(), coche.get_modelo());
+            Log.d(getClass().getCanonicalName(), persona.get_nombre() +" " + persona.get_id());
 
         }
 

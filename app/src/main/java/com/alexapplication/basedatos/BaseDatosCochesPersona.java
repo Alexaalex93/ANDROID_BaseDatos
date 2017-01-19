@@ -25,6 +25,7 @@ public class BaseDatosCochesPersona extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL(sqlCreacionTablaPersona);
         db.execSQL(sqlCreacionTablaCoches);
 
@@ -41,7 +42,7 @@ public class BaseDatosCochesPersona extends SQLiteOpenHelper {
 
     }
 
-    private void cerraDataBase (SQLiteDatabase db){
+    private void cerrarDataBase (SQLiteDatabase db){
         db.close();
     }
 
@@ -49,16 +50,47 @@ public class BaseDatosCochesPersona extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("INSERT INTO PERSONA (id, nombre) VALUES (" + persona.get_id() + " , '" + persona.get_nombre() + "')"); //TEXTO COMO ES LITERAL ENTRE COMILLAS SIMPLES
-        cerraDataBase(db);
+        cerrarDataBase(db);
 
     }
 
-    public void insetarCoche (Coche coche){
+    public void insertarCoche (Coche coche){
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("INSERT INTO COCHE (modelo, idpersona) VALUES ('" + coche.get_modelo() + "', " + coche.get_persona().get_id() + ") "); //Falt comillas
-        cerraDataBase(db);
+        cerrarDataBase(db);
 
+    }
+    public List<Persona> buscarPersona (String name){
+
+        List<Persona> list_persona = null;
+        String consulta = "SELECT id FROM PERSONA WHERE nombre = '" + name + "' ";
+        Persona persona = null;
+        String modelo = null;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(consulta, null);
+
+        if (cursor != null && cursor.getCount() >= 0){
+
+            cursor.moveToFirst();
+            list_persona = new ArrayList<>(cursor.getCount());
+
+            do {
+
+                 modelo = cursor.getString(0);
+                persona = new Persona(modelo);
+                list_persona.add(persona);
+
+            }while(cursor.moveToNext());
+
+            cursor.close();
+
+        }
+
+        this.cerrarDataBase(db);
+
+        return  list_persona;
     }
 
     public List<Coche> buscarCochesPersona (Persona persona){
@@ -87,7 +119,7 @@ public class BaseDatosCochesPersona extends SQLiteOpenHelper {
 
         }
          //Ya que he usado la base de datos, la cierro
-        this.cerraDataBase(db);
+        this.cerrarDataBase(db);
 
         return  lista_coches;
     }
